@@ -147,8 +147,8 @@
 
         window.validarAccesoSupervisor = function () {
             const pass = document.getElementById('passSupervisor').value;
-            let passCorrecta = "2026-SDF";
-            if (window.targetRole === 'admin') passCorrecta = "Admin2026DF*";
+            let passCorrecta = "2026+ISADF";
+            if (window.targetRole === 'admin') passCorrecta = "Admin2026ISADF/";
             
 
             if (pass === passCorrecta) {
@@ -178,9 +178,7 @@
 
         function aplicarPermisosUI() {
             // Si intenta entrar a modo protegido sin auth, forzar login
-            if (!authed) {
-                window.accesoLogin(mode);
-            }
+            if (!authed) { window.abrirModal('modalRoleSelection'); }
 
             // Usamos modeEfectivo para las labels y UI
             const badgeLogo = document.getElementById('admin-badge-logo');
@@ -2865,12 +2863,13 @@
                 return;
             }
 
-            let totalPay = 0, totalHours = 0, totalExtras = 0;
+            let totalPay = 0, totalHours = 0, totalExtras = 0, totalEntregas = 0;
             let breakdownHTML = reportesDomi.map(r => {
                 
                 totalPay += (r.tot || 0);
                 totalHours += (r.h || 0);
                 totalExtras += (r.hx || 0);
+                totalEntregas += (r.e || 0);
 
                 const formatM = (v) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(v || 0);
                 const h = Math.floor((r.h || 0) / 60);
@@ -3286,6 +3285,12 @@
         };
 
     
+
+
+
+
+
+
 
 
 
